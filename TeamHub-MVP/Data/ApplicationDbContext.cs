@@ -24,7 +24,6 @@ namespace TeamHub_MVP.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity
             base.OnModelCreating(builder);
         }
 
