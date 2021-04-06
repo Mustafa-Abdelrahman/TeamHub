@@ -9,7 +9,7 @@ namespace TeamHub_MVP.Models
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public User AreaManager { get; set; }
+          public User AreaManager { get; set; }
         public ICollection<Team> Teams { get; set; }
     }
 }
