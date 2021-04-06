@@ -8,7 +8,7 @@ namespace TeamHub_MVP.Models
     public class Project
     {
         public int ID { get; set; }
-        public string Name { get; set; }
+        public string Title { get; set; }
         public string Description { get; set; }
         public string SPOC { get; set; }
         public int Percentage { get; set; }
@@ -41,10 +41,7 @@ namespace TeamHub_MVP.Models
         public bool IsProduction { get; set; }
         public bool IsOnHold { get; set; }
         public bool IsInProgress { get; set; }
-
-
-
-
+        public bool HasReachedDeadLine { get; set; }
 
     }
 }
