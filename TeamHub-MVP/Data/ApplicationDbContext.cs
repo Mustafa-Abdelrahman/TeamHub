@@ -15,6 +15,7 @@ namespace TeamHub_MVP.Data
         public DbSet<Note> Notes { get; set; }
         public DbSet<Bug> Bugs { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Department> Departments { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -25,6 +26,7 @@ namespace TeamHub_MVP.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
         }
 
     }
