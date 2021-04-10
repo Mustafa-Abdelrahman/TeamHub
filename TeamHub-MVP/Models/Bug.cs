@@ -14,10 +14,11 @@ namespace TeamHub_MVP.Models
         public DateTime FoundDate { get; set; }
         public DateTime DebuggingStartDate { get; set; }
         public DateTime DebuggingEndDate { get; set; }
-        //public virtual User ReportedBy { get; set; }
-        //public virtual User ResolvedBy { get; set; }
+        public virtual User ReportedBy { get; set; }
+        public virtual User ResolvedBy { get; set; }
+        public virtual User UserWokringOn { get; set; }
         public bool IsResolved { get; set; }
         public bool DebuggingIsInProgress { get; set; }
-        //public virtual Project Project { get; set; }
+        public virtual Project Project { get; set; }
     }
 }

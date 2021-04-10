@@ -26,14 +26,19 @@ namespace TeamHub_MVP.Data
         {
             base.OnModelCreating(modelBuilder);
 
+
+
+            //Many To Many
+            //-------------
             //Project to Team Many To Many
             modelBuilder.Entity<UserProject>().HasKey(up => new { up.UserID, up.ProjectID }); // Composite Key
             modelBuilder.Entity<UserProject>().HasOne(up => up.User).WithMany(u => u.Projects).HasForeignKey(up => up.UserID);
             modelBuilder.Entity<UserProject>().HasOne(up => up.Project).WithMany(p => p.Users).HasForeignKey(up => up.ProjectID);
 
-            //Many To Many
-            //-------------
-           
+            //User to Task Many To Many
+            modelBuilder.Entity<UserTask>().HasKey(ut => new { ut.UserID, ut.TaskID }); // Composite Key
+            modelBuilder.Entity<UserTask>().HasOne(ut => ut.User).WithMany(u => u.Tasks).HasForeignKey(ut => ut.UserID);
+            modelBuilder.Entity<UserTask>().HasOne(ut => ut.Task).WithMany(t => t.Users).HasForeignKey(ut => ut.TaskID);
 
             //One to One
             //------------

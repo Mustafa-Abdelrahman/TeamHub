@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamHub_MVP.Data;
 
 namespace TeamHub_MVP.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210410032958_AddNoteTaskCommentRelations")]
+    partial class AddNoteTaskCommentRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -182,27 +184,12 @@ namespace TeamHub_MVP.Data.Migrations
                     b.Property<int?>("ProjectID")
                         .HasColumnType("int");
 
-                    b.Property<string>("ReportedById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ResolvedById")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserWokringOnId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ID");
 
                     b.HasIndex("ProjectID");
-
-                    b.HasIndex("ReportedById");
-
-                    b.HasIndex("ResolvedById");
-
-                    b.HasIndex("UserWokringOnId");
 
                     b.ToTable("Bugs");
                 });
@@ -417,9 +404,6 @@ namespace TeamHub_MVP.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ManagerID")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -601,18 +585,6 @@ namespace TeamHub_MVP.Data.Migrations
                     b.HasOne("TeamHub_MVP.Models.Project", "Project")
                         .WithMany("Bugs")
                         .HasForeignKey("ProjectID");
-
-                    b.HasOne("TeamHub_MVP.Models.User", "ReportedBy")
-                        .WithMany()
-                        .HasForeignKey("ReportedById");
-
-                    b.HasOne("TeamHub_MVP.Models.User", "ResolvedBy")
-                        .WithMany()
-                        .HasForeignKey("ResolvedById");
-
-                    b.HasOne("TeamHub_MVP.Models.User", "UserWokringOn")
-                        .WithMany()
-                        .HasForeignKey("UserWokringOnId");
                 });
 
             modelBuilder.Entity("TeamHub_MVP.Models.Comment", b =>
@@ -674,7 +646,7 @@ namespace TeamHub_MVP.Data.Migrations
                         .HasForeignKey("ManagerId");
 
                     b.HasOne("TeamHub_MVP.Models.Team", "Team")
-                        .WithMany("Members")
+                        .WithMany()
                         .HasForeignKey("TeamID");
                 });
 

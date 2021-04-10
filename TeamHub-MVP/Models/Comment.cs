@@ -10,7 +10,7 @@ namespace TeamHub_MVP.Models
         public int ID { get; set; }
         public string Content { get; set; }
         public DateTime CreatedOn { get; set; }
-        //public virtual User CreatedBy { get; set; }
-        //public virtual Task Task { get; set; }
+        public virtual User CreatedBy { get; set; }
+        public virtual Task Task { get; set; }
     }
 }

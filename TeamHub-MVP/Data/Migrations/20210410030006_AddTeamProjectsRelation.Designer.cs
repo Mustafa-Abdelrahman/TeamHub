@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamHub_MVP.Data;
 
 namespace TeamHub_MVP.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210410030006_AddTeamProjectsRelation")]
+    partial class AddTeamProjectsRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -179,30 +181,10 @@ namespace TeamHub_MVP.Data.Migrations
                     b.Property<bool>("IsResolved")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ProjectID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ReportedById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ResolvedById")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserWokringOnId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("ProjectID");
-
-                    b.HasIndex("ReportedById");
-
-                    b.HasIndex("ResolvedById");
-
-                    b.HasIndex("UserWokringOnId");
 
                     b.ToTable("Bugs");
                 });
@@ -217,20 +199,10 @@ namespace TeamHub_MVP.Data.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("TaskID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("TaskID");
 
                     b.ToTable("Comments");
                 });
@@ -245,28 +217,13 @@ namespace TeamHub_MVP.Data.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("ProjectID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TaskID")
-                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("ProjectID");
-
-                    b.HasIndex("TaskID");
 
                     b.ToTable("Notes");
                 });
@@ -352,20 +309,11 @@ namespace TeamHub_MVP.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<TimeSpan>("ElapsedTime")
                         .HasColumnType("time");
-
-                    b.Property<string>("FinishedById")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("FinishedOn")
                         .HasColumnType("datetime2");
@@ -379,13 +327,7 @@ namespace TeamHub_MVP.Data.Migrations
                     b.Property<bool>("IsOnHold")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("LastUpdatedOn")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("Precentage")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProjectID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartedOn")
@@ -394,18 +336,7 @@ namespace TeamHub_MVP.Data.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UpdatedById")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("FinishedById");
-
-                    b.HasIndex("ProjectID");
-
-                    b.HasIndex("UpdatedById");
 
                     b.ToTable("Tasks");
                 });
@@ -416,9 +347,6 @@ namespace TeamHub_MVP.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ManagerID")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -530,21 +458,6 @@ namespace TeamHub_MVP.Data.Migrations
                     b.ToTable("UserProject");
                 });
 
-            modelBuilder.Entity("TeamHub_MVP.Models.UserTask", b =>
-                {
-                    b.Property<string>("UserID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("TaskID")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserID", "TaskID");
-
-                    b.HasIndex("TaskID");
-
-                    b.ToTable("UserTask");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -596,75 +509,11 @@ namespace TeamHub_MVP.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TeamHub_MVP.Models.Bug", b =>
-                {
-                    b.HasOne("TeamHub_MVP.Models.Project", "Project")
-                        .WithMany("Bugs")
-                        .HasForeignKey("ProjectID");
-
-                    b.HasOne("TeamHub_MVP.Models.User", "ReportedBy")
-                        .WithMany()
-                        .HasForeignKey("ReportedById");
-
-                    b.HasOne("TeamHub_MVP.Models.User", "ResolvedBy")
-                        .WithMany()
-                        .HasForeignKey("ResolvedById");
-
-                    b.HasOne("TeamHub_MVP.Models.User", "UserWokringOn")
-                        .WithMany()
-                        .HasForeignKey("UserWokringOnId");
-                });
-
-            modelBuilder.Entity("TeamHub_MVP.Models.Comment", b =>
-                {
-                    b.HasOne("TeamHub_MVP.Models.User", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById");
-
-                    b.HasOne("TeamHub_MVP.Models.Task", "Task")
-                        .WithMany("Comments")
-                        .HasForeignKey("TaskID");
-                });
-
-            modelBuilder.Entity("TeamHub_MVP.Models.Note", b =>
-                {
-                    b.HasOne("TeamHub_MVP.Models.User", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById");
-
-                    b.HasOne("TeamHub_MVP.Models.Project", "Project")
-                        .WithMany("Notes")
-                        .HasForeignKey("ProjectID");
-
-                    b.HasOne("TeamHub_MVP.Models.Task", "Task")
-                        .WithMany("Notes")
-                        .HasForeignKey("TaskID");
-                });
-
             modelBuilder.Entity("TeamHub_MVP.Models.Project", b =>
                 {
-                    b.HasOne("TeamHub_MVP.Models.Team", "Team")
+                    b.HasOne("TeamHub_MVP.Models.Team", null)
                         .WithMany("Projects")
                         .HasForeignKey("TeamID");
-                });
-
-            modelBuilder.Entity("TeamHub_MVP.Models.Task", b =>
-                {
-                    b.HasOne("TeamHub_MVP.Models.User", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById");
-
-                    b.HasOne("TeamHub_MVP.Models.User", "FinishedBy")
-                        .WithMany()
-                        .HasForeignKey("FinishedById");
-
-                    b.HasOne("TeamHub_MVP.Models.Project", "Project")
-                        .WithMany("Tasks")
-                        .HasForeignKey("ProjectID");
-
-                    b.HasOne("TeamHub_MVP.Models.User", "UpdatedBy")
-                        .WithMany()
-                        .HasForeignKey("UpdatedById");
                 });
 
             modelBuilder.Entity("TeamHub_MVP.Models.User", b =>
@@ -674,7 +523,7 @@ namespace TeamHub_MVP.Data.Migrations
                         .HasForeignKey("ManagerId");
 
                     b.HasOne("TeamHub_MVP.Models.Team", "Team")
-                        .WithMany("Members")
+                        .WithMany()
                         .HasForeignKey("TeamID");
                 });
 
@@ -688,21 +537,6 @@ namespace TeamHub_MVP.Data.Migrations
 
                     b.HasOne("TeamHub_MVP.Models.User", "User")
                         .WithMany("Projects")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("TeamHub_MVP.Models.UserTask", b =>
-                {
-                    b.HasOne("TeamHub_MVP.Models.Task", "Task")
-                        .WithMany("Users")
-                        .HasForeignKey("TaskID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TeamHub_MVP.Models.User", "User")
-                        .WithMany("Tasks")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
