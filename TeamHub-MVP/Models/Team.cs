@@ -9,7 +9,8 @@ namespace TeamHub_MVP.Models
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        //public User Manager { get; set; }
-        //public ICollection<User> Members { get; set; }
+        //public virtual User Manager { get; set; }
+        //public virtual ICollection<User> Members { get; set; }
+        public virtual ICollection<Project> Projects { get; set; }
     }
 }

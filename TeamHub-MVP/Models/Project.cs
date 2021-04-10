@@ -14,13 +14,11 @@ namespace TeamHub_MVP.Models
         public int Percentage { get; set; }
 
         //Navigation Props
-        //public ICollection<Team> TeamsInvolved { get; set; }
-        //public ICollection<Task> Tasks { get; set; }
-        //public ICollection<Note> Notes { get; set; }
-        //public ICollection<User> Assignees { get; set; }
-        //public ICollection<Bug> Bugs { get; set; }
-        //public User ProjectOwner { get; set; }
-        //public Department Department { get; set; }
+        //public virtual ICollection<Team> TeamsInvolved { get; set; }
+        //public virtual ICollection<Task> Tasks { get; set; }
+        //public virtual ICollection<Note> Notes { get; set; }
+        //public virtual ICollection<Bug> Bugs { get; set; }
+        public ICollection<UserProject> Users { get; set; }
 
         //Planned 
         public DateTime PlannedStartDate { get; set; }
